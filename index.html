@@ -920,14 +920,14 @@ body {
         <span class="ticker-item">🦊 たそ</span>
         <span class="ticker-item">🐻 いが</span>
         <span class="ticker-item">🐯 こうち</span>
-        <span class="ticker-item">🦅 しゅう</span>
+        <span class="ticker-item">🦅 しゅう（たまに）</span>
         <span class="ticker-item">★ ブリッジラジオ 00s</span>
         <span class="ticker-item">🎧 Spotify配信中</span>
         <span class="ticker-item">🎙 毎週水曜配信</span>
         <span class="ticker-item">🦊 たそ</span>
         <span class="ticker-item">🐻 いが</span>
         <span class="ticker-item">🐯 こうち</span>
-        <span class="ticker-item">🦅 しゅう</span>
+        <span class="ticker-item">🦅 しゅう（たまに）</span>
         <span class="ticker-item">★ ブリッジラジオ 00s</span>
         <span class="ticker-item">🎧 Spotify配信中</span>
       </div>
@@ -952,10 +952,6 @@ body {
         <div class="member-chip">
           <div class="member-icon">🐯</div>
           <div class="member-name">こうち</div>
-        </div>
-        <div class="member-chip">
-          <div class="member-icon">🦅</div>
-          <div class="member-name">しゅう</div>
         </div>
       </div>
     </div>
@@ -1002,7 +998,7 @@ body {
       <div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">読み込み中…</div>
     </div>
     <div style="margin-top:20px;">
-      <a href="https://open.spotify.com/show/7CS0NT2megKVd6CCC1V2EF" target="_blank" class="btn-sub" style="display:flex;">🎙 すべてのエピソードを聴く</a>
+      <a href="https://podcasts.apple.com/jp/podcast/%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A9%E3%82%B8%E3%82%AA-00s/id1864707587" target="_blank" class="btn-sub" style="display:flex;">🎙 すべてのエピソードをApple Podcastで聴く</a>
     </div>
   </section>
 
@@ -1112,7 +1108,7 @@ body {
   <section class="section">
     <div class="sec-label">CAST</div>
     <h2 class="sec-title">メンバー紹介</h2>
-    <p class="sec-body" style="margin-bottom:28px;">ブリッジラジオを一緒につくる4人！気になるメンバーをタップ🐾</p>
+    <p class="sec-body" style="margin-bottom:28px;">ブリッジラジオを一緒につくる3人＋たまに参加メンバー！気になるメンバーをタップ🐾</p>
     <div class="cast-card-grid">
 
       <div class="cast-card2" onclick="openProfile('taso')">
@@ -1139,14 +1135,21 @@ body {
         <div class="cast-card2-btn">くわしく見る ›</div>
       </div>
 
-      <div class="cast-card2" onclick="openProfile('shu')">
+    </div>
+
+    <div style="margin-top:28px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--text-dim);margin-bottom:14px;text-transform:uppercase;">たまに参加</div>
+      <div class="cast-card-grid">
+
+      <div class="cast-card2" onclick="openProfile('shu')" style="opacity:.85;">
         <div class="cast-card2-icon">🦅</div>
         <div class="cast-card2-name">しゅう</div>
-        <div class="cast-card2-tag">メンバー</div>
+        <div class="cast-card2-tag">たまに</div>
         <div class="cast-card2-preview">静かな熱さを持つ語り手。</div>
         <div class="cast-card2-btn">くわしく見る ›</div>
       </div>
 
+      </div>
     </div>
   </section>
 </div>
@@ -1175,34 +1178,11 @@ body {
   </div>
   <section class="section">
     <div class="sec-label">BLOG</div>
-    <div class="blog-list">
-      <div class="blog-card" onclick="alert('記事ページ（準備中）')">
-        <div class="blog-thumb">📻</div>
-        <div class="blog-body">
-          <div class="blog-date">2025.01.22 WED</div>
-          <div class="blog-title">「なんか違う」を言語化することの意味</div>
-          <div class="blog-excerpt">今週のエピソードを収録してて、ふと思ったんですよね。「なんか違う」って感覚、誰でも持ってると思うんですけど...</div>
-          <div class="blog-more">続きを読む →</div>
-        </div>
-      </div>
-      <div class="blog-card" onclick="alert('記事ページ（準備中）')">
-        <div class="blog-thumb">🌉</div>
-        <div class="blog-body">
-          <div class="blog-date">2025.01.15 WED</div>
-          <div class="blog-title">25歳になって変わったこと、変わらないこと</div>
-          <div class="blog-excerpt">節目の年齢ってなんか特別な気がして。でも実際なにが変わったかって聞かれると案外わからなくて...</div>
-          <div class="blog-more">続きを読む →</div>
-        </div>
-      </div>
-      <div class="blog-card" onclick="alert('記事ページ（準備中）')">
-        <div class="blog-thumb">🎙️</div>
-        <div class="blog-body">
-          <div class="blog-date">2025.01.08 WED</div>
-          <div class="blog-title">ブリッジラジオをはじめた理由</div>
-          <div class="blog-excerpt">2000年生まれって、平成と令和どちらにも属せる不思議な世代だと思っていて。その感覚を誰かと共有したくて...</div>
-          <div class="blog-more">続きを読む →</div>
-        </div>
-      </div>
+    <div class="blog-list" id="blog-list">
+      <div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">読み込み中…</div>
+    </div>
+    <div style="margin-top:20px;">
+      <a href="https://note.com/bridge_radio2000" target="_blank" class="btn-sub" style="display:flex;">📝 noteをもっと見る</a>
     </div>
   </section>
 </div>
@@ -1431,7 +1411,7 @@ const profiles = {
   shu: {
     icon: '🦅',
     name: 'しゅう',
-    badge: 'メンバー',
+    badge: 'たまに',
     keywords: ['俯瞰視点', '静かな熱さ', '語り手', '独自の目線'],
     bio: '静かな熱さを持つ語り手。\n高いところから全体を見渡すような視点で話してくれる。普段は穏やかだけど、テーマにハマったときの語りは圧倒的。\nみんなが当たり前だと思ってたことを「実はそれって……」とひっくり返すのが得意で、このラジオのなかで一番「ハッとさせられる」発言をしてくれる。',
     quote: '当たり前の中に、まだ名前のついてないものがたくさんある。',
@@ -1535,80 +1515,138 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2400);
 }
 
+// NOTE BLOG LOADER
+async function loadBlog() {
+  const list = document.getElementById('blog-list');
+  const NOTE_RSS = 'https://note.com/bridge_radio2000/rss';
+  const proxies = [
+    `https://corsproxy.io/?${encodeURIComponent(NOTE_RSS)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(NOTE_RSS)}`,
+    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(NOTE_RSS)}&count=5`,
+  ];
+
+  let result = null;
+  for (const proxy of proxies) {
+    try {
+      const res = await fetch(proxy);
+      const text = await res.text();
+      // rss2json形式
+      try {
+        const json = JSON.parse(text);
+        if (json.items?.length) { result = { type: 'json', data: json.items }; break; }
+      } catch(e) {}
+      // XML形式
+      const doc = new DOMParser().parseFromString(text, 'text/xml');
+      const items = doc.querySelectorAll('item');
+      if (items.length) { result = { type: 'xml', data: Array.from(items).slice(0,5) }; break; }
+    } catch(e) { continue; }
+  }
+
+  if (!result) {
+    list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">記事を読み込めませんでした</div>';
+    return;
+  }
+
+  const emojis = ['📝','🎙️','🌉','💭','✨'];
+  if (result.type === 'json') {
+    list.innerHTML = result.data.map((item, i) => {
+      const date = new Date(item.pubDate);
+      const d = `${date.getFullYear()}.${String(date.getMonth()+1).padStart(2,'0')}.${String(date.getDate()).padStart(2,'0')}`;
+      const excerpt = item.description?.replace(/<[^>]+>/g,'').slice(0,60) || '';
+      return `<div class="blog-card" onclick="window.open('${item.link}','_blank')">
+        <div class="blog-thumb">${emojis[i%5]}</div>
+        <div class="blog-body">
+          <div class="blog-date">${d}</div>
+          <div class="blog-title">${item.title}</div>
+          <div class="blog-excerpt">${excerpt}…</div>
+          <div class="blog-more">続きを読む →</div>
+        </div>
+      </div>`;
+    }).join('');
+  } else {
+    list.innerHTML = result.data.map((item, i) => {
+      const title = item.querySelector('title')?.textContent || '';
+      const link = item.querySelector('link')?.textContent || '#';
+      const pubDate = item.querySelector('pubDate')?.textContent || '';
+      const desc = item.querySelector('description')?.textContent?.replace(/<[^>]+>/g,'').slice(0,60) || '';
+      const date = new Date(pubDate);
+      const d = `${date.getFullYear()}.${String(date.getMonth()+1).padStart(2,'0')}.${String(date.getDate()).padStart(2,'0')}`;
+      return `<div class="blog-card" onclick="window.open('${link}','_blank')">
+        <div class="blog-thumb">${emojis[i%5]}</div>
+        <div class="blog-body">
+          <div class="blog-date">${d}</div>
+          <div class="blog-title">${title}</div>
+          <div class="blog-excerpt">${desc}…</div>
+          <div class="blog-more">続きを読む →</div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+}
+loadBlog();
+
 // SCROLL REVEAL
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// RSS EPISODE LOADER
+// EPISODE LOADER (iTunes API → Apple Podcast直リンク)
 async function loadEpisodes() {
   const list = document.getElementById('ep-list');
-  const RSS = 'https://anchor.fm/s/10b7b57e4/podcast/rss';
+  const SHOW_ID = '1864707587';
+  const APPLE_SHOW = 'https://podcasts.apple.com/jp/podcast/%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A9%E3%82%B8%E3%82%AA-00s/id' + SHOW_ID;
 
-  async function tryFetch(url, isJson) {
-    const res = await fetch(url);
-    const text = isJson ? (await res.json()).contents : await res.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, 'text/xml');
-    if (!doc.querySelector('item')) throw new Error('no items');
-    return doc;
-  }
-
-  const attempts = [
-    () => tryFetch(RSS, false),  // 直接（CORSが許可されている場合）
-    () => tryFetch(`https://corsproxy.io/?${encodeURIComponent(RSS)}`, false),
-    () => tryFetch(`https://api.allorigins.win/get?url=${encodeURIComponent(RSS)}`, true),
-    () => fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS)}&count=6`).then(r=>r.json()).then(d => { if(!d.items?.length) throw new Error('no items'); return d; }),
-  ];
-
-  let result = null;
-  for (const attempt of attempts) {
-    try { result = await attempt(); break; } catch(e) { continue; }
-  }
-
-  if (!result) {
-    list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">エピソードを読み込めませんでした</div>';
-    return;
-  }
-
-  // rss2json形式の場合
-  if (result.items) {
-    const items = result.items;
+  function renderItems(items) {
     list.innerHTML = items.map((item, i) => {
       const num = String(items.length - i).padStart(2, '0');
-      const dur = item.itunes_duration ? (() => { const s = String(item.itunes_duration).split(':'); return `${parseInt(s[s.length-2]||0)} MIN`; })() : '';
-      const date = new Date(item.pubDate);
-      const dow = ['SUN','MON','TUE','WED','THU','FRI','SAT'][date.getDay()];
-      const meta = [dow, dur].filter(Boolean).join(' · ');
-      return `<div class="ep-item" onclick="window.open('${item.link||'#'}','_blank')">
+      const link = item.trackViewUrl || APPLE_SHOW;
+      const title = item.trackName || '';
+      const durMs = item.trackTimeMillis || 0;
+      const durMin = durMs ? Math.round(durMs / 60000) + ' MIN' : '';
+      const date = new Date(item.releaseDate || '');
+      const dow = isNaN(date) ? '' : ['SUN','MON','TUE','WED','THU','FRI','SAT'][date.getDay()];
+      const meta = [dow, durMin].filter(Boolean).join(' · ');
+      return `<div class="ep-item" onclick="window.open('${link}','_blank')">
         <span class="ep-num">#${num}</span>
-        <div class="ep-info"><div class="ep-title">${item.title}</div><div class="ep-meta">${meta}</div></div>
+        <div class="ep-info"><div class="ep-title">${title}</div><div class="ep-meta">${meta}</div></div>
         <div class="ep-play">▶</div>
       </div>`;
     }).join('');
-    return;
   }
 
-  // XML形式の場合
-  const items = Array.from(result.querySelectorAll('item')).slice(0, 6);
-  const total = result.querySelectorAll('item').length;
-  list.innerHTML = items.map((item, i) => {
-    const title = item.querySelector('title')?.textContent || '';
-    const link = item.querySelector('enclosure')?.getAttribute('url') || item.querySelector('link')?.textContent || '#';
-    const pubDate = item.querySelector('pubDate')?.textContent || '';
-    const dur = item.querySelector('duration')?.textContent || '';
-    const date = new Date(pubDate);
-    const dow = ['SUN','MON','TUE','WED','THU','FRI','SAT'][date.getDay()];
-    const durFmt = dur ? `${parseInt(dur.split(':').slice(-2)[0]||0)} MIN` : '';
-    const meta = [dow, durFmt].filter(Boolean).join(' · ');
-    const num = String(total - i).padStart(2, '0');
-    return `<div class="ep-item" onclick="window.open('${link}','_blank')">
-      <span class="ep-num">#${num}</span>
-      <div class="ep-info"><div class="ep-title">${title}</div><div class="ep-meta">${meta}</div></div>
-      <div class="ep-play">▶</div>
-    </div>`;
-  }).join('');
+  try {
+    // iTunes Search API でエピソード一覧取得（Apple Podcastの直リンク付き）
+    const url = `https://itunes.apple.com/lookup?id=${SHOW_ID}&media=podcast&entity=podcastEpisode&limit=7&country=jp`;
+    const res = await fetch(url);
+    const data = await res.json();
+    // results[0]はショー情報なのでスキップ
+    const episodes = data.results.filter(r => r.kind === 'podcast-episode').slice(0, 6);
+    if (!episodes.length) throw new Error('no episodes');
+    renderItems(episodes);
+  } catch(e) {
+    // フォールバック：RSS経由
+    try {
+      const RSS = 'https://anchor.fm/s/10b7b57e4/podcast/rss';
+      const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS)}&count=6`);
+      const d = await r.json();
+      if (!d.items?.length) throw new Error('no items');
+      list.innerHTML = d.items.map((item, i) => {
+        const num = String(d.items.length - i).padStart(2, '0');
+        const dur = item.itunes_duration ? (() => { const s = String(item.itunes_duration).split(':'); return `${parseInt(s[s.length-2]||0)} MIN`; })() : '';
+        const date = new Date(item.pubDate);
+        const dow = ['SUN','MON','TUE','WED','THU','FRI','SAT'][date.getDay()];
+        const meta = [dow, dur].filter(Boolean).join(' · ');
+        return `<div class="ep-item" onclick="window.open('${APPLE_SHOW}','_blank')">
+          <span class="ep-num">#${num}</span>
+          <div class="ep-info"><div class="ep-title">${item.title}</div><div class="ep-meta">${meta}</div></div>
+          <div class="ep-play">▶</div>
+        </div>`;
+      }).join('');
+    } catch(e2) {
+      list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">エピソードを読み込めませんでした</div>';
+    }
+  }
 }
 loadEpisodes();
 </script>
