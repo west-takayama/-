@@ -1519,28 +1519,42 @@ function showToast(msg) {
 async function loadBlog() {
   const list = document.getElementById('blog-list');
   const NOTE_RSS = 'https://note.com/bridge_radio2000/rss';
-  const proxies = [
-    `https://corsproxy.io/?${encodeURIComponent(NOTE_RSS)}`,
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(NOTE_RSS)}`,
-    `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(NOTE_RSS)}&count=5`,
-  ];
 
   let result = null;
-  for (const proxy of proxies) {
-    try {
-      const res = await fetch(proxy);
-      const text = await res.text();
-      // rss2json形式
-      try {
-        const json = JSON.parse(text);
-        if (json.items?.length) { result = { type: 'json', data: json.items }; break; }
-      } catch(e) {}
-      // XML形式
-      const doc = new DOMParser().parseFromString(text, 'text/xml');
-      const items = doc.querySelectorAll('item');
-      if (items.length) { result = { type: 'xml', data: Array.from(items).slice(0,5) }; break; }
-    } catch(e) { continue; }
-  }
+
+  // ① rss2json（最も安定）
+  try {
+    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(NOTE_RSS)}&count=5`);
+    const json = await res.json();
+    if (json.items?.length) result = { type: 'json', data: json.items };
+  } catch(e) {}
+
+  // ② allorigins /get（JSONラッパー形式）
+  if (!result) try {
+    const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(NOTE_RSS)}`);
+    const json = await res.json();
+    const doc = new DOMParser().parseFromString(json.contents, 'text/xml');
+    const items = doc.querySelectorAll('item');
+    if (items.length) result = { type: 'xml', data: Array.from(items).slice(0,5) };
+  } catch(e) {}
+
+  // ③ corsproxy.io
+  if (!result) try {
+    const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(NOTE_RSS)}`);
+    const text = await res.text();
+    const doc = new DOMParser().parseFromString(text, 'text/xml');
+    const items = doc.querySelectorAll('item');
+    if (items.length) result = { type: 'xml', data: Array.from(items).slice(0,5) };
+  } catch(e) {}
+
+  // ④ allorigins /raw
+  if (!result) try {
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(NOTE_RSS)}`);
+    const text = await res.text();
+    const doc = new DOMParser().parseFromString(text, 'text/xml');
+    const items = doc.querySelectorAll('item');
+    if (items.length) result = { type: 'xml', data: Array.from(items).slice(0,5) };
+  } catch(e) {}
 
   if (!result) {
     list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">記事を読み込めませんでした</div>';
