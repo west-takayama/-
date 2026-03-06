@@ -938,14 +938,14 @@ body {
         <span class="ticker-item">🦊 たそ</span>
         <span class="ticker-item">🐻 いが</span>
         <span class="ticker-item">🐯 こうち</span>
-        <span class="ticker-item">🐨 しゅう（たまに）</span>
+        <span class="ticker-item">🐨 しゅう</span>
         <span class="ticker-item">★ ブリッジラジオ 00s</span>
         <span class="ticker-item">🎧 Spotify配信中</span>
         <span class="ticker-item">🎙 毎週水曜配信</span>
         <span class="ticker-item">🦊 たそ</span>
         <span class="ticker-item">🐻 いが</span>
         <span class="ticker-item">🐯 こうち</span>
-        <span class="ticker-item">🐨 しゅう（たまに）</span>
+        <span class="ticker-item">🐨 しゅう</span>
         <span class="ticker-item">★ ブリッジラジオ 00s</span>
         <span class="ticker-item">🎧 Spotify配信中</span>
       </div>
@@ -970,6 +970,10 @@ body {
         <div class="member-chip">
           <div class="member-icon">🐯</div>
           <div class="member-name">こうち</div>
+        </div>
+        <div class="member-chip">
+          <div class="member-icon">🐨</div>
+          <div class="member-name">しゅう</div>
         </div>
       </div>
     </div>
@@ -1126,7 +1130,7 @@ body {
   <section class="section">
     <div class="sec-label">CAST</div>
     <h2 class="sec-title">メンバー紹介</h2>
-    <p class="sec-body" style="margin-bottom:28px;">ブリッジラジオを一緒につくる3人＋たまに参加メンバー！気になるメンバーをタップ🐾</p>
+    <p class="sec-body" style="margin-bottom:28px;">ブリッジラジオを一緒につくるメンバー！気になるメンバーをタップ🐾</p>
     <div class="cast-card-grid">
 
       <div class="cast-card2" onclick="openProfile('taso')">
@@ -1153,22 +1157,16 @@ body {
         <div class="cast-card2-btn">くわしく見る ›</div>
       </div>
 
-    </div>
-
-    <div style="margin-top:28px;">
-      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;color:var(--text-dim);margin-bottom:14px;text-transform:uppercase;">たまに参加</div>
-      <div class="cast-card-grid">
-
-      <div class="cast-card2" onclick="openProfile('shu')" style="opacity:.85;">
+      <div class="cast-card2" onclick="openProfile('shu')">
         <div class="cast-card2-icon">🐨</div>
         <div class="cast-card2-name">しゅう</div>
-        <div class="cast-card2-tag">たまに</div>
+        <div class="cast-card2-tag">メンバー</div>
         <div class="cast-card2-preview">静かな熱さを持つ語り手。</div>
         <div class="cast-card2-btn">くわしく見る ›</div>
       </div>
 
-      </div>
     </div>
+
   </section>
 </div>
 
@@ -1429,7 +1427,7 @@ const profiles = {
   shu: {
     icon: '🐨',
     name: 'しゅう',
-    badge: 'たまに',
+    badge: 'メンバー',
     keywords: ['俯瞰視点', '静かな熱さ', '語り手', '独自の目線'],
     bio: '静かな熱さを持つ語り手。\n高いところから全体を見渡すような視点で話してくれる。普段は穏やかだけど、テーマにハマったときの語りは圧倒的。\nみんなが当たり前だと思ってたことを「実はそれって……」とひっくり返すのが得意で、このラジオのなかで一番「ハッとさせられる」発言をしてくれる。',
     quote: '当たり前の中に、まだ名前のついてないものがたくさんある。',
