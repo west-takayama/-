@@ -937,7 +937,59 @@ body {
   flex-shrink: 0;
 }
 
-/* STATS */
+/* GOAL TRACKER */
+.goal-card {
+  background: var(--gray1);
+  border: 1px solid rgba(255,214,0,0.15);
+  border-radius: var(--radius);
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.goal-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(255,214,0,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+.goal-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 20px;
+}
+.goal-title { font-size: 13px; font-weight: 800; color: var(--yellow); letter-spacing: 0.1em; }
+.goal-updated { font-size: 10px; color: var(--text-dim2); font-weight: 500; margin-top: 4px; }
+.goal-count {
+  font-size: 38px; font-weight: 900; color: var(--white);
+  line-height: 1; letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.goal-count span { font-size: 16px; font-weight: 700; color: var(--text-dim); margin-left: 4px; }
+.goal-target { font-size: 11px; color: var(--text-dim2); font-weight: 600; margin-bottom: 16px; }
+.goal-bar-wrap {
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px; height: 10px;
+  overflow: hidden; margin-bottom: 12px;
+}
+.goal-bar {
+  height: 100%; border-radius: 99px;
+  background: linear-gradient(90deg, var(--yellow), #FFE566);
+  width: 0%;
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 0 12px rgba(255,214,0,0.4);
+}
+.goal-footer {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.goal-pct { font-size: 13px; font-weight: 900; color: var(--yellow); }
+.goal-remain { font-size: 11px; color: var(--text-dim2); font-weight: 600; }
+.goal-complete {
+  text-align: center; font-size: 28px;
+  animation: bounceIn 0.6s cubic-bezier(0.34,1.5,0.64,1) both;
+  display: none;
+}
+@keyframes bounceIn { from{opacity:0;transform:scale(0.5)} to{opacity:1;transform:scale(1)} }
+
+
 .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,214,0,0.07); border-radius:var(--radius); overflow:hidden; margin-top:24px; }
 .stat-item { background:var(--black); padding:20px 10px; text-align:center; }
 .stat-num { font-size:22px; font-weight:900; color:var(--yellow); display:block; line-height:1; }
@@ -1030,6 +1082,30 @@ body {
     <h2 class="sec-title" style="font-size:18px; margin-bottom:8px;">お知らせ</h2>
     <div class="news-list" id="news-list">
       <div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">読み込み中…</div>
+    </div>
+  </section>
+
+  <!-- GOAL TRACKER -->
+  <section class="section reveal">
+    <div class="sec-label">GOAL</div>
+    <h2 class="sec-title" style="font-size:18px; margin-bottom:16px;">みんなで目指す目標</h2>
+    <div class="goal-card" id="goal-card">
+      <div class="goal-header">
+        <div>
+          <div class="goal-title">🎯 総再生回数</div>
+          <div class="goal-updated" id="goal-updated">読み込み中…</div>
+        </div>
+        <div class="goal-complete" id="goal-complete">🎉</div>
+      </div>
+      <div class="goal-count" id="goal-count">－<span>/ －</span></div>
+      <div class="goal-target" id="goal-target">目標まで読み込み中…</div>
+      <div class="goal-bar-wrap">
+        <div class="goal-bar" id="goal-bar"></div>
+      </div>
+      <div class="goal-footer">
+        <span class="goal-pct" id="goal-pct">－%</span>
+        <span class="goal-remain" id="goal-remain">あと－回</span>
+      </div>
     </div>
   </section>
 
@@ -1579,6 +1655,89 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
+
+// GOAL TRACKER
+async function loadGoal() {
+  const GOAL_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRsglf4PxOpvzroovCmZGgGQLpUMGd3PEnqqempngNT5zBqPajYbXwoRYVf7r-ekb-dLJ3-oHtgyW35/pub?output=csv';
+
+  try {
+    let text = null;
+    try {
+      const res = await fetch(GOAL_CSV);
+      if (res.ok) text = await res.text();
+    } catch(e) {}
+    if (!text) {
+      const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(GOAL_CSV)}`);
+      text = await res.text();
+    }
+    if (!text) throw new Error('no data');
+
+    const rows = text.trim().split('\n');
+    const data = rows[1].split(',').map(v => v.trim().replace(/"/g, ''));
+    const current = parseInt(data[0]) || 0;
+    const target  = parseInt(data[1]) || 10000;
+    const updated = data[2] || '';
+    const pct = Math.min(Math.round((current / target) * 100), 100);
+    const remain = Math.max(target - current, 0);
+
+    // カウントアップアニメーション
+    const countEl = document.getElementById('goal-count');
+    const duration = 1800;
+    const start = performance.now();
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const val = Math.round(eased * current);
+      countEl.innerHTML = `${val.toLocaleString()}<span>/ ${target.toLocaleString()}</span>`;
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+
+    document.getElementById('goal-updated').textContent = updated ? `最終更新：${updated}` : '';
+    document.getElementById('goal-target').textContent = `目標 ${target.toLocaleString()} 回まであと ${remain.toLocaleString()} 回！`;
+    document.getElementById('goal-pct').textContent = `${pct}%`;
+    document.getElementById('goal-remain').textContent = `あと ${remain.toLocaleString()} 回`;
+
+    // バーアニメーション
+    setTimeout(() => {
+      document.getElementById('goal-bar').style.width = pct + '%';
+    }, 300);
+
+    // 達成演出
+    if (pct >= 100) {
+      document.getElementById('goal-complete').style.display = 'block';
+      launchConfetti();
+    }
+
+  } catch(e) {
+    document.getElementById('goal-updated').textContent = '読み込めませんでした';
+  }
+}
+
+// 紙吹雪
+function launchConfetti() {
+  const colors = ['#FFD600','#FFE566','#ffffff','#B89A00'];
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const el = document.createElement('div');
+      el.style.cssText = `
+        position:fixed; top:-10px; left:${Math.random()*100}vw;
+        width:8px; height:8px; border-radius:${Math.random()>0.5?'50%':'2px'};
+        background:${colors[Math.floor(Math.random()*colors.length)]};
+        pointer-events:none; z-index:9999;
+        animation: confettiFall ${1.5+Math.random()}s ease-in forwards;
+      `;
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 3000);
+    }, i * 40);
+  }
+  const style = document.createElement('style');
+  style.textContent = `@keyframes confettiFall { to { transform: translateY(110vh) rotate(${Math.random()*720}deg); opacity:0; } }`;
+  document.head.appendChild(style);
+}
+
+loadGoal();
 
 // NEWS LOADER (Google Spreadsheet CSV)
 async function loadNews() {
