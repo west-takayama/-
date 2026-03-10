@@ -1942,6 +1942,188 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   });
 }
+
+// =============================================
+// 🎉 楽しい仕掛け
+// =============================================
+
+// ① タップで絵文字が弾けて飛び散る
+const tapEmojis = ['🎙️','🎵','✨','🔥','💛','🌉','🐾','👂','📻','💬','🎶','⚡️'];
+document.addEventListener('click', (e) => {
+  if (e.target.closest('a, button, select, textarea, input')) return;
+  for (let i = 0; i < 6; i++) {
+    const el = document.createElement('div');
+    const emoji = tapEmojis[Math.floor(Math.random() * tapEmojis.length)];
+    const angle = (Math.random() * 360);
+    const dist = 60 + Math.random() * 80;
+    const dx = Math.cos(angle * Math.PI / 180) * dist;
+    const dy = Math.sin(angle * Math.PI / 180) * dist;
+    el.textContent = emoji;
+    el.style.cssText = `
+      position: fixed;
+      left: ${e.clientX}px;
+      top: ${e.clientY}px;
+      font-size: ${14 + Math.random() * 14}px;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.6s cubic-bezier(0.22,1,0.36,1), opacity 0.6s ease;
+      opacity: 1;
+    `;
+    document.body.appendChild(el);
+    requestAnimationFrame(() => {
+      el.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(0.3)`;
+      el.style.opacity = '0';
+    });
+    setTimeout(() => el.remove(), 700);
+  }
+});
+
+// ② スクロールで絵文字がふわっと出てくる
+const scrollEmojis = ['🎙️','🌉','✨','🎵','💛','🐾','🔥','👂'];
+let lastScrollY = 0;
+let scrollCooldown = false;
+window.addEventListener('scroll', () => {
+  if (scrollCooldown) return;
+  const dy = Math.abs(window.scrollY - lastScrollY);
+  if (dy < 80) return;
+  lastScrollY = window.scrollY;
+  scrollCooldown = true;
+  setTimeout(() => scrollCooldown = false, 600);
+
+  const el = document.createElement('div');
+  el.textContent = scrollEmojis[Math.floor(Math.random() * scrollEmojis.length)];
+  const x = 10 + Math.random() * 80;
+  el.style.cssText = `
+    position: fixed;
+    left: ${x}vw;
+    top: ${20 + Math.random() * 60}vh;
+    font-size: ${20 + Math.random() * 20}px;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0;
+    transform: translateY(0px) scale(0.5);
+    transition: opacity 0.4s ease, transform 0.8s cubic-bezier(0.22,1,0.36,1);
+  `;
+  document.body.appendChild(el);
+  requestAnimationFrame(() => {
+    el.style.opacity = '0.85';
+    el.style.transform = 'translateY(-30px) scale(1)';
+  });
+  setTimeout(() => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(-60px) scale(0.7)';
+  }, 900);
+  setTimeout(() => el.remove(), 1500);
+});
+
+// ③ メンバーアイコンが下を歩き回る
+(function() {
+  const members = [
+    { emoji: '🦊', name: 'たそ', speed: 1.2 },
+    { emoji: '🐻', name: 'いが', speed: 0.8 },
+    { emoji: '🐯', name: 'こうち', speed: 1.5 },
+    { emoji: '🐨', name: 'しゅう', speed: 1.0 },
+  ];
+
+  const hour = new Date().getHours();
+  const isSleepTime = hour >= 0 && hour < 6;
+
+  const container = document.createElement('div');
+  container.style.cssText = `
+    position: fixed;
+    bottom: 72px;
+    left: 0; right: 0;
+    height: 48px;
+    pointer-events: none;
+    z-index: 800;
+    overflow: hidden;
+  `;
+  document.body.appendChild(container);
+
+  members.forEach((m, i) => {
+    const el = document.createElement('div');
+    el.style.cssText = `
+      position: absolute;
+      bottom: 0;
+      font-size: 26px;
+      cursor: pointer;
+      pointer-events: all;
+      user-select: none;
+      transition: transform 0.2s;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+    `;
+
+    if (isSleepTime) {
+      // 夜は寝てる
+      el.innerHTML = `<span style="display:inline-block;transform:rotate(90deg)">${m.emoji}</span><span style="font-size:12px;position:absolute;top:-8px;left:50%;transform:translateX(-50%)">💤</span>`;
+      el.style.bottom = '0px';
+      el.style.left = `${15 + i * 22}%`;
+      container.appendChild(el);
+      return;
+    }
+
+    el.textContent = m.emoji;
+    container.appendChild(el);
+
+    // 歩行アニメーション
+    let x = Math.random() * (window.innerWidth - 40);
+    let dir = Math.random() > 0.5 ? 1 : -1;
+    let flipped = dir === -1;
+    let running = false;
+
+    el.style.left = x + 'px';
+    el.style.transform = flipped ? 'scaleX(-1)' : 'scaleX(1)';
+
+    // タップで逃げる
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      running = true;
+      const runDir = x > window.innerWidth / 2 ? 1 : -1;
+      dir = runDir;
+      m.speed *= 4;
+      // リアクション
+      const bubble = document.createElement('div');
+      bubble.textContent = ['わっ！','きゃ！','あっ！','えっ！'][Math.floor(Math.random()*4)];
+      bubble.style.cssText = `
+        position:absolute; bottom:32px; left:50%; transform:translateX(-50%);
+        background:#FFD600; color:#000; font-size:11px; font-weight:800;
+        padding:3px 8px; border-radius:10px; white-space:nowrap;
+        pointer-events:none; animation: bubblePop 0.8s ease forwards;
+      `;
+      el.appendChild(bubble);
+      setTimeout(() => { bubble.remove(); m.speed /= 4; running = false; }, 900);
+    });
+
+    function walk() {
+      x += dir * m.speed;
+      if (x > window.innerWidth - 40) { dir = -1; flipped = true; }
+      if (x < 0) { dir = 1; flipped = false; }
+      el.style.left = x + 'px';
+      el.style.transform = flipped ? 'scaleX(-1)' : 'scaleX(1)';
+
+      // 歩くたびにちょっと上下にバウンス
+      const bounce = Math.sin(Date.now() / (200 / m.speed)) * 3;
+      el.style.bottom = Math.max(0, bounce) + 'px';
+
+      requestAnimationFrame(walk);
+    }
+
+    // ランダムに少し遅らせてスタート
+    setTimeout(walk, i * 400);
+  });
+
+  // バブルアニメーション
+  const bubbleStyle = document.createElement('style');
+  bubbleStyle.textContent = `
+    @keyframes bubblePop {
+      0% { opacity:1; transform:translateX(-50%) translateY(0) scale(1); }
+      100% { opacity:0; transform:translateX(-50%) translateY(-20px) scale(0.8); }
+    }
+  `;
+  document.head.appendChild(bubbleStyle);
+})();
+
 </script>
 </body>
 </html>
