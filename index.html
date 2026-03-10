@@ -897,6 +897,46 @@ body {
 .reveal { opacity:0; transform:translateY(20px); transition:opacity 0.6s ease, transform 0.6s ease; }
 .reveal.visible { opacity:1; transform:none; }
 
+/* NEWS */
+.news-list { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
+
+.news-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--gray1);
+  border-radius: var(--radius);
+  border: 1px solid rgba(255,255,255,0.04);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--white);
+  transition: border-color 0.15s, background 0.15s;
+}
+.news-item:active { background: var(--gray2); border-color: rgba(255,214,0,0.2); }
+
+.news-date {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.news-title {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.news-arrow {
+  font-size: 14px;
+  color: rgba(255,214,0,0.5);
+  flex-shrink: 0;
+}
+
 /* STATS */
 .stats { display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:rgba(255,214,0,0.07); border-radius:var(--radius); overflow:hidden; margin-top:24px; }
 .stat-item { background:var(--black); padding:20px 10px; text-align:center; }
@@ -981,6 +1021,15 @@ body {
     <div class="cta-wrap">
       <a href="https://open.spotify.com/show/7CS0NT2megKVd6CCC1V2EF" target="_blank" class="btn-main">🎵　Spotifyで今すぐ聴く</a>
       <a href="https://podcasts.apple.com/jp/podcast/%E3%83%96%E3%83%AA%E3%83%83%E3%82%B8%E3%83%A9%E3%82%B8%E3%82%AA-00s/id1864707587" target="_blank" class="btn-sub">🎙　Apple Podcastで聴く</a>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section class="section reveal">
+    <div class="sec-label">NEWS</div>
+    <h2 class="sec-title" style="font-size:18px; margin-bottom:8px;">お知らせ</h2>
+    <div class="news-list" id="news-list">
+      <div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">読み込み中…</div>
     </div>
   </section>
 
@@ -1530,6 +1579,46 @@ function showToast(msg) {
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2400);
 }
+
+// NEWS LOADER (Google Spreadsheet CSV)
+async function loadNews() {
+  const list = document.getElementById('news-list');
+
+  // ★ここにスプレッドシートのCSV公開URLを入れる
+  const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTum36lyYWNpzOeKuPD5ZZPVEyg0GufJJYuKmvH1c-tDuCR6UxRzY14o_hskWrh0dCztOvsRHZM8KYi/pub?output=csv';
+
+  if (SHEET_CSV_URL === 'YOUR_SPREADSHEET_CSV_URL') {
+    list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">スプレッドシートのURLを設定してください</div>';
+    return;
+  }
+
+  try {
+    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(SHEET_CSV_URL)}`);
+    const text = await res.text();
+    const rows = text.trim().split('\n').slice(1); // 1行目はヘッダーなのでスキップ
+
+    if (!rows.length) throw new Error('no data');
+
+    list.innerHTML = rows.reverse().slice(0, 5).map(row => {
+      const cols = row.split(',');
+      const date  = (cols[0] || '').trim().replace(/"/g, '');
+      const title = (cols[1] || '').trim().replace(/"/g, '');
+      const url   = (cols[2] || '').trim().replace(/"/g, '');
+      if (!title) return '';
+      const tag = url ? `<a href="${url}" target="_blank" class="news-item">` : `<div class="news-item" style="cursor:default;">`;
+      const closeTag = url ? '</a>' : '</div>';
+      return `${tag}
+        <span class="news-date">${date}</span>
+        <span class="news-title">${title}</span>
+        ${url ? '<span class="news-arrow">→</span>' : ''}
+      ${closeTag}`;
+    }).filter(Boolean).join('');
+
+  } catch(e) {
+    list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--text-dim);font-size:13px;">お知らせを読み込めませんでした</div>';
+  }
+}
+loadNews();
 
 // NOTE BLOG LOADER
 async function loadBlog() {
