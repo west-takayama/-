@@ -1593,8 +1593,23 @@ async function loadNews() {
   }
 
   try {
-    const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(SHEET_CSV_URL)}`);
-    const text = await res.text();
+    // Googleスプレッドシートは直接fetchできる
+    let text = null;
+    try {
+      const res = await fetch(SHEET_CSV_URL);
+      if (res.ok) text = await res.text();
+    } catch(e) {}
+
+    // 直接取得できない場合はプロキシ経由
+    if (!text) {
+      const res = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(SHEET_CSV_URL)}`);
+      text = await res.text();
+    }
+    if (!text) {
+      const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(SHEET_CSV_URL)}`);
+      text = await res.text();
+    }
+    if (!text) throw new Error('no data');
     const rows = text.trim().split('\n').slice(1); // 1行目はヘッダーなのでスキップ
 
     if (!rows.length) throw new Error('no data');
@@ -1659,6 +1674,13 @@ async function loadBlog() {
     const doc = new DOMParser().parseFromString(text, 'text/xml');
     const items = doc.querySelectorAll('item');
     if (items.length) result = { type: 'xml', data: Array.from(items).slice(0,5) };
+  } catch(e) {}
+
+  // ⑤ rssbridge
+  if (!result) try {
+    const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(NOTE_RSS)}&api_key=&count=5&order_by=pubDate`);
+    const json = await res.json();
+    if (json.items?.length) result = { type: 'json', data: json.items };
   } catch(e) {}
 
   if (!result) {
