@@ -1042,48 +1042,179 @@ body {
   background: linear-gradient(135deg, #0D0A1A, #150F2A);
   border: 1px solid rgba(150,100,255,0.2);
   border-radius: var(--radius);
-  padding: 24px 20px;
+  padding: 28px 20px 24px;
   position: relative;
   overflow: hidden;
+  text-align: center;
 }
 .horoscope-card::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 80% 20%, rgba(150,100,255,0.08) 0%, transparent 60%);
+  background: radial-gradient(ellipse at 50% 0%, rgba(150,100,255,0.1) 0%, transparent 65%);
   pointer-events: none;
 }
 .horoscope-date {
   font-size: 10px; font-weight: 800;
   color: #c084fc; letter-spacing: 0.2em;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
-.horoscope-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+
+/* ORB */
+.horoscope-orb {
+  font-size: 64px;
+  display: block;
+  margin: 0 auto 14px;
+  animation: orbFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(150,100,255,0.5));
+  cursor: pointer;
+  transition: transform 0.15s;
 }
-.horoscope-item {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: var(--radius-sm);
-  padding: 14px 12px;
+.horoscope-orb:active { transform: scale(0.9); }
+@keyframes orbFloat {
+  0%,100%{transform:translateY(0) rotate(-2deg);}
+  50%{transform:translateY(-8px) rotate(2deg);}
 }
-.horoscope-member {
-  display: flex; align-items: center; gap: 8px;
-  margin-bottom: 10px;
+.horoscope-orb.spinning {
+  animation: orbSpin 0.6s cubic-bezier(0.36,0,0.66,1) forwards;
 }
-.horoscope-icon { font-size: 22px; line-height: 1; }
-.horoscope-name { font-size: 13px; font-weight: 800; }
-.horoscope-lucky {
-  font-size: 10px; font-weight: 700;
-  color: #c084fc; margin-bottom: 6px;
+@keyframes orbSpin {
+  0%{transform:scale(1) rotate(0deg);}
+  40%{transform:scale(1.3) rotate(180deg);}
+  70%{transform:scale(0.8) rotate(340deg);}
+  100%{transform:scale(0) rotate(360deg);}
+}
+
+.horoscope-hint {
+  font-size: 12px;
+  color: rgba(192,132,252,0.7);
+  font-weight: 600;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  letter-spacing: 0.03em;
+}
+
+/* TAP BUTTON */
+.horoscope-tap-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  font-family: 'Rounded Mplus 1c', sans-serif;
+  font-size: 16px;
+  font-weight: 900;
+  padding: 18px 32px;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+  box-shadow: 0 6px 0 #5b21b6, 0 0 24px rgba(139,92,246,0.4);
+  transition: transform 0.1s, box-shadow 0.1s;
   letter-spacing: 0.05em;
+  margin-bottom: 18px;
 }
-.horoscope-stars { font-size: 13px; margin-bottom: 8px; }
-.horoscope-text {
-  font-size: 11px; line-height: 1.8;
-  color: rgba(255,255,255,0.6); font-weight: 500;
+.horoscope-tap-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #5b21b6, 0 0 12px rgba(139,92,246,0.3);
 }
+.horoscope-tap-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.horoscope-tap-icon { font-size: 20px; }
+
+/* COUNTER */
+.horoscope-counter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  color: rgba(192,132,252,0.6);
+  font-weight: 600;
+}
+.horoscope-counter-num {
+  font-size: 18px;
+  font-weight: 900;
+  color: #c084fc;
+  line-height: 1;
+}
+
+/* RESULT */
+#horoscope-result-state {
+  animation: resultReveal 0.5s cubic-bezier(0.34,1.4,0.64,1) both;
+}
+@keyframes resultReveal {
+  from{opacity:0;transform:scale(0.85) translateY(10px);}
+  to{opacity:1;transform:scale(1) translateY(0);}
+}
+
+.horoscope-result-member {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(192,132,252,0.2);
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: inline-flex;
+}
+.horoscope-result-member-icon { font-size: 28px; }
+.horoscope-result-member-name { font-size: 16px; font-weight: 900; }
+.horoscope-result-member-tag {
+  font-size: 10px; font-weight: 700;
+  color: #c084fc;
+  background: rgba(192,132,252,0.1);
+  padding: 3px 10px; border-radius: 20px;
+  border: 1px solid rgba(192,132,252,0.2);
+}
+
+.horoscope-result-lucky {
+  font-size: 11px; font-weight: 700;
+  color: #c084fc; letter-spacing: 0.05em;
+  margin-bottom: 10px;
+  background: rgba(192,132,252,0.07);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(192,132,252,0.15);
+  display: inline-block;
+}
+
+.horoscope-result-stars {
+  font-size: 22px;
+  margin-bottom: 14px;
+  letter-spacing: 2px;
+}
+
+.horoscope-result-text {
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(255,255,255,0.85);
+  font-weight: 600;
+  margin-bottom: 22px;
+  text-align: left;
+  background: rgba(255,255,255,0.03);
+  border-left: 3px solid #7c3aed;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 14px 16px;
+}
+
+.horoscope-result-actions {
+  margin-bottom: 18px;
+}
+
+.horoscope-retry-btn {
+  background: transparent;
+  color: #c084fc;
+  font-family: 'Rounded Mplus 1c', sans-serif;
+  font-size: 13px; font-weight: 800;
+  padding: 12px 24px;
+  border: 1.5px solid rgba(192,132,252,0.4);
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.horoscope-retry-btn:active { background: rgba(192,132,252,0.1); }
 
 
 .goal-actions {
@@ -1226,7 +1357,35 @@ body {
     <h2 class="sec-title" style="font-size:18px; margin-bottom:16px;">今日のブリッジ占い</h2>
     <div class="horoscope-card">
       <div class="horoscope-date" id="horoscope-date"></div>
-      <div class="horoscope-grid" id="horoscope-grid"></div>
+
+      <!-- ボタン状態 -->
+      <div id="horoscope-btn-state">
+        <div class="horoscope-orb" id="horoscope-orb">🔮</div>
+        <p class="horoscope-hint">メンバーの誰かがあなたに今日の運勢を届ける</p>
+        <button class="horoscope-tap-btn" id="horoscope-tap-btn" onclick="revealFortune()">
+          <span class="horoscope-tap-label">占いを見る</span>
+          <span class="horoscope-tap-icon">✨</span>
+        </button>
+        <div class="horoscope-counter" id="horoscope-counter-pre">
+          <span class="horoscope-counter-num" id="horoscope-count-pre">…</span>
+          <span class="horoscope-counter-txt">人が今日占った</span>
+        </div>
+      </div>
+
+      <!-- 結果状態（初期非表示） -->
+      <div id="horoscope-result-state" style="display:none;">
+        <div class="horoscope-result-member" id="horoscope-result-member"></div>
+        <div class="horoscope-result-lucky" id="horoscope-result-lucky"></div>
+        <div class="horoscope-result-stars" id="horoscope-result-stars"></div>
+        <div class="horoscope-result-text" id="horoscope-result-text"></div>
+        <div class="horoscope-result-actions">
+          <button class="horoscope-retry-btn" onclick="retryFortune()">🔄 もう一度引く</button>
+        </div>
+        <div class="horoscope-counter" id="horoscope-counter-post">
+          <span class="horoscope-counter-num" id="horoscope-count-post">…</span>
+          <span class="horoscope-counter-txt">人が今日占った</span>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1876,10 +2035,10 @@ function showToast(msg) {
 // HOROSCOPE
 (function() {
   const members = [
-    { icon: '🦊', name: 'たそ' },
-    { icon: '🐻', name: 'いが' },
-    { icon: '🐯', name: 'こうち' },
-    { icon: '🐨', name: 'しゅう' },
+    { icon: '🦊', name: 'たそ',   tag: '偏見・論理・分析' },
+    { icon: '🐻', name: 'いが',   tag: '感受性・マイペース・癒やし' },
+    { icon: '🐯', name: 'こうち', tag: '話術・空気・勢い' },
+    { icon: '🐨', name: 'しゅう', tag: '熱さ・ポエム・語り' },
   ];
 
   const allFortunes = {
@@ -2320,30 +2479,90 @@ function showToast(msg) {
 
   function starsDisplay(n) {
     if (n <= 0) return '💀'.repeat(Math.min(Math.abs(n)||1, 5));
-    if (n > 100) return '⭐'.repeat(5) + ' × ' + n.toLocaleString();
+    if (n > 100) return '⭐'.repeat(5) + ' <span style="font-size:11px;color:#c084fc;font-weight:800;">× ' + n.toLocaleString() + '</span>';
     const full = Math.min(Math.floor(n), 5);
     return '⭐'.repeat(full) + (n % 1 >= 0.5 ? '✨' : '');
   }
 
   const now = new Date();
-  const seed = now.getFullYear() * 10000 + (now.getMonth()+1) * 100 + now.getDate();
   const dateStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,'0')}.${String(now.getDate()).padStart(2,'0')}`;
+  const todayKey = `horoscope-clicks-${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
+
   document.getElementById('horoscope-date').textContent = `📅 ${dateStr} の運勢`;
 
-  document.getElementById('horoscope-grid').innerHTML = members.map((m, i) => {
-    const pool = allFortunes[m.name] || Object.values(allFortunes).flat();
-    const f = pool[(seed + i * 37 + 71) % pool.length];
-    const starsNum = f.stars;
-    return `<div class="horoscope-item">
-      <div class="horoscope-member">
-        <span class="horoscope-icon">${m.icon}</span>
-        <span class="horoscope-name">${m.name}</span>
-      </div>
-      <div class="horoscope-lucky">🎁 ラッキーアイテム：${f.item}</div>
-      <div class="horoscope-stars">${starsDisplay(starsNum)}</div>
-      <div class="horoscope-text">${f.text}</div>
-    </div>`;
-  }).join('');
+  // 今日のクリック数を読み込む
+  async function loadCount() {
+    try {
+      const result = await window.storage.get(todayKey, true);
+      const count = result ? parseInt(result.value) || 0 : 0;
+      document.getElementById('horoscope-count-pre').textContent = count.toLocaleString();
+      document.getElementById('horoscope-count-post').textContent = count.toLocaleString();
+      return count;
+    } catch(e) {
+      document.getElementById('horoscope-count-pre').textContent = '0';
+      document.getElementById('horoscope-count-post').textContent = '0';
+      return 0;
+    }
+  }
+
+  async function incrementCount() {
+    try {
+      const result = await window.storage.get(todayKey, true);
+      const count = result ? (parseInt(result.value) || 0) + 1 : 1;
+      await window.storage.set(todayKey, String(count), true);
+      document.getElementById('horoscope-count-pre').textContent = count.toLocaleString();
+      document.getElementById('horoscope-count-post').textContent = count.toLocaleString();
+    } catch(e) {}
+  }
+
+  // ランダムな運勢を選ぶ（時刻ベースのシードでランダム性を出す）
+  window.revealFortune = async function() {
+    const btn = document.getElementById('horoscope-tap-btn');
+    const orb = document.getElementById('horoscope-orb');
+    btn.disabled = true;
+
+    // ORBのスピンアニメ
+    orb.classList.add('spinning');
+
+    await incrementCount();
+
+    // ランダムメンバー＋運勢を選ぶ（Math.randomで毎回違う）
+    const m = members[Math.floor(Math.random() * members.length)];
+    const pool = allFortunes[m.name] || [];
+    const f = pool[Math.floor(Math.random() * pool.length)];
+
+    setTimeout(() => {
+      // ボタン状態を非表示
+      document.getElementById('horoscope-btn-state').style.display = 'none';
+
+      // 結果を表示
+      const rs = document.getElementById('horoscope-result-state');
+      document.getElementById('horoscope-result-member').innerHTML = `
+        <span class="horoscope-result-member-icon">${m.icon}</span>
+        <span class="horoscope-result-member-name">${m.name}</span>
+        <span class="horoscope-result-member-tag">${m.tag}</span>
+      `;
+      document.getElementById('horoscope-result-lucky').innerHTML = `🎁 ラッキーアイテム：${f.item}`;
+      document.getElementById('horoscope-result-stars').innerHTML = starsDisplay(f.stars);
+      document.getElementById('horoscope-result-text').textContent = f.text;
+      rs.style.display = 'block';
+    }, 650);
+  };
+
+  window.retryFortune = async function() {
+    // 結果を隠してボタン状態に戻す（カウントはしない）
+    document.getElementById('horoscope-result-state').style.display = 'none';
+    const btnState = document.getElementById('horoscope-btn-state');
+    btnState.style.display = 'block';
+    const btn = document.getElementById('horoscope-tap-btn');
+    btn.disabled = false;
+    const orb = document.getElementById('horoscope-orb');
+    orb.classList.remove('spinning');
+    orb.style.animation = 'none';
+    setTimeout(() => { orb.style.animation = ''; }, 50);
+  };
+
+  loadCount();
 })();
 
 // GOAL TRACKER
