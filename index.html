@@ -79,12 +79,24 @@ color: var(–white);
 font-family: ‘Rounded Mplus 1c’, ‘Kiwi Maru’, sans-serif;
 overflow-x: hidden;
 font-size: 15px;
+max-width: 430px;
+margin: 0 auto;
+position: relative;
+}
+
+/* iPad以上の画面は背景だけ黒く */
+html {
+background: #050505;
 }
 
 /* NAV */
 .nav {
 position: fixed;
-bottom: 0; left: 0; right: 0;
+bottom: 0;
+left: 50%;
+transform: translateX(-50%);
+width: 100%;
+max-width: 430px;
 background: rgba(13,13,13,0.95);
 backdrop-filter: blur(12px);
 border-top: 1px solid rgba(255,214,0,0.15);
@@ -2915,4 +2927,3 @@ document.addEventListener('click', (e) => {
 
 </body>
 </html>
-
