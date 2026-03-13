@@ -2540,10 +2540,13 @@ function showToast(msg) {
     saveData(data);
     updateDots(data.draws.length);
 
+    // 音声は「ゆ」より1.5秒早く再生
     setTimeout(() => {
       playRevealSound(f.stars);
+    }, 0);
+    setTimeout(() => {
       showResult(m, f, true);
-    }, 1300);
+    }, 1500);
   }
 
   window.revealFortune = function() {
