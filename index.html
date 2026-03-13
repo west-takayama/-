@@ -2368,7 +2368,7 @@ function showToast(msg) {
   function playRevealSound(stars) {
     try {
       const idx = yuSoundIndex(stars);
-      const audio = new Audio('sounds/yu' + idx + '.mp3');
+      const audio = new Audio('yu' + idx + '.mp3');
       audio.play();
     } catch(e) {}
   }
@@ -2475,7 +2475,8 @@ function showToast(msg) {
   function loadData() {
     try {
       const saved = localStorage.getItem(storageKey);
-      return saved ? JSON.parse(saved) : { draws: [] };
+      const parsed = saved ? JSON.parse(saved) : null;
+      return { draws: Array.isArray(parsed?.draws) ? parsed.draws : [] };
     } catch(e) { return { draws: [] }; }
   }
 
@@ -2533,6 +2534,7 @@ function showToast(msg) {
     const m = members[Math.floor(Math.random() * members.length)];
     const pool = allFortunes[m.name] || [];
     const f = pool[Math.floor(Math.random() * pool.length)];
+    if (!f) { if (btn) btn.disabled = false; return; }
 
     data.draws.push({ memberName: m.name, fortune: f });
     saveData(data);
