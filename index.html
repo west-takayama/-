@@ -1292,6 +1292,10 @@ html {
         <span class="ticker-item">🐻 いが</span>
         <span class="ticker-item">🐯 こうち</span>
         <span class="ticker-item">🐨 しゅう</span>
+        <span class="ticker-item">🐘 しゃり</span>
+        <span class="ticker-item">🐰 はぎ</span>
+        <span class="ticker-item">🦚 りゅう</span>
+        <span class="ticker-item">🐺 れお</span>
         <span class="ticker-item">★ ブリッジラジオ 00s</span>
         <span class="ticker-item">🎧 Spotify配信中</span>
         <span class="ticker-item">🎙 毎週水曜配信</span>
@@ -1299,6 +1303,10 @@ html {
         <span class="ticker-item">🐻 いが</span>
         <span class="ticker-item">🐯 こうち</span>
         <span class="ticker-item">🐨 しゅう</span>
+        <span class="ticker-item">🐘 しゃり</span>
+        <span class="ticker-item">🐰 はぎ</span>
+        <span class="ticker-item">🦚 りゅう</span>
+        <span class="ticker-item">🐺 れお</span>
         <span class="ticker-item">★ ブリッジラジオ 00s</span>
         <span class="ticker-item">🎧 Spotify配信中</span>
       </div>
@@ -1312,22 +1320,14 @@ html {
         25歳の等身大ラジオ。
       </p>
       <div class="member-grid">
-        <div class="member-chip">
-          <div class="member-icon">🦊</div>
-          <div class="member-name">たそ</div>
-        </div>
-        <div class="member-chip">
-          <div class="member-icon">🐻</div>
-          <div class="member-name">いが</div>
-        </div>
-        <div class="member-chip">
-          <div class="member-icon">🐯</div>
-          <div class="member-name">こうち</div>
-        </div>
-        <div class="member-chip">
-          <div class="member-icon">🐨</div>
-          <div class="member-name">しゅう</div>
-        </div>
+        <div class="member-chip"><div class="member-icon">🦊</div><div class="member-name">たそ</div></div>
+        <div class="member-chip"><div class="member-icon">🐻</div><div class="member-name">いが</div></div>
+        <div class="member-chip"><div class="member-icon">🐯</div><div class="member-name">こうち</div></div>
+        <div class="member-chip"><div class="member-icon">🐨</div><div class="member-name">しゅう</div></div>
+        <div class="member-chip"><div class="member-icon">🐘</div><div class="member-name">しゃり</div></div>
+        <div class="member-chip"><div class="member-icon">🐰</div><div class="member-name">はぎ</div></div>
+        <div class="member-chip"><div class="member-icon">🦚</div><div class="member-name">りゅう</div></div>
+        <div class="member-chip"><div class="member-icon">🐺</div><div class="member-name">れお</div></div>
       </div>
     </div>
 
@@ -1621,6 +1621,35 @@ html {
         <div class="cast-card2-btn">くわしく見る ›</div>
       </div>
 
+      <div class="cast-card2" onclick="openProfile('shari')">
+        <div class="cast-card2-icon">🐘</div>
+        <div class="cast-card2-name">しゃり</div>
+        <div class="cast-card2-tag">メンバー</div>
+        <div class="cast-card2-preview">体は大きくて心は優しい、野球バカ。</div>
+        <div class="cast-card2-btn">くわしく見る ›</div>
+      </div>
+      <div class="cast-card2" onclick="openProfile('hagi')">
+        <div class="cast-card2-icon">🐰</div>
+        <div class="cast-card2-name">はぎ</div>
+        <div class="cast-card2-tag">メンバー</div>
+        <div class="cast-card2-preview">天然で器が大きい、唯一の女性メンバー。</div>
+        <div class="cast-card2-btn">くわしく見る ›</div>
+      </div>
+      <div class="cast-card2" onclick="openProfile('ryu')">
+        <div class="cast-card2-icon">🦚</div>
+        <div class="cast-card2-name">りゅう</div>
+        <div class="cast-card2-tag">メンバー</div>
+        <div class="cast-card2-preview">おしゃれへの情熱が止まらない審美眼の持ち主。</div>
+        <div class="cast-card2-btn">くわしく見る ›</div>
+      </div>
+      <div class="cast-card2" onclick="openProfile('reo')">
+        <div class="cast-card2-icon">🐺</div>
+        <div class="cast-card2-name">れお</div>
+        <div class="cast-card2-tag">メンバー</div>
+        <div class="cast-card2-preview">いかつい見た目に反して、なぜかモテる謎の存在。</div>
+        <div class="cast-card2-btn">くわしく見る ›</div>
+      </div>
+
     </div>
 
   </section>
@@ -1823,6 +1852,42 @@ const profiles = {
     bio: '静かな熱さを持つ語り手。\n高いところから全体を見渡すような視点で話してくれる。普段は穏やかだけど、テーマにハマったときの語りは圧倒的。\nみんなが当たり前だと思ってたことを「実はそれって……」とひっくり返すのが得意で、このラジオのなかで一番「ハッとさせられる」発言をしてくれる。',
     quote: '当たり前の中に、まだ名前のついてないものがたくさんある。',
     letterTarget: 'shu'
+  },
+  shari: {
+    icon: '🐘',
+    name: 'しゃり',
+    badge: 'メンバー',
+    keywords: ['体がでかい', '心は優しい', '野球バカ', 'ギャップ'],
+    bio: '見た目の圧は強いが、中身はびっくりするくらい優しい。\nとにかく野球が好きで、話の途中でも野球の話に持っていく才能がある。でも誰も嫌な気持ちにならないのは、その人柄のせい。\nデカくて優しくて野球が好き。それだけで十分キャラが立っているのに、さらに面白いのがずるい。',
+    quote: '野球は人生の縮図だと思ってる。たぶん。',
+    letterTarget: 'shari'
+  },
+  hagi: {
+    icon: '🐰',
+    name: 'はぎ',
+    badge: 'メンバー',
+    keywords: ['天然', '器がでかい', '唯一の女性', 'たその奥さん'],
+    bio: '天然なのに、なぜか器がめちゃくちゃ大きい。\nメンバー唯一の女性で、たその奥さんでもある。場の空気を和ませる存在感があって、気づいたら全員に愛されている。\n天然発言が飛び出すたびにみんながほっこりする、ブリッジラジオの太陽みたいな人。',
+    quote: 'なんとかなるって、わりと本当だと思う。',
+    letterTarget: 'hagi'
+  },
+  ryu: {
+    icon: '🦚',
+    name: 'りゅう',
+    badge: 'メンバー',
+    keywords: ['おしゃれ', '審美眼', 'ファッション', 'こだわり派'],
+    bio: 'おしゃれへの情熱が、ちょっと常人の域を超えている。\nブランドとか素材とか、こだわりのポイントが細かすぎてついていけないことも多いけど、その熱量がなんか面白い。\nラジオでもしれっとファッション論を挟んでくる。気づいたら全員が聞き入っているのがりゅうの才能。',
+    quote: 'おしゃれって、自分への敬意だと思ってる。',
+    letterTarget: 'ryu'
+  },
+  reo: {
+    icon: '🐺',
+    name: 'れお',
+    badge: 'メンバー',
+    keywords: ['いかつめ', 'モテる', 'ギャップ', '謎の魅力'],
+    bio: '見た目はちょっといかつい。でもなぜかモテる。\nそのギャップが全てを説明している気もするけど、本人はあまり自覚がなさそうで、それがまたいい。\n強そうに見えてしっかり感情があって、ちゃんと傷ついたりする。そのリアルさがれおの一番の魅力かもしれない。',
+    quote: 'モテる理由は、自分が一番わからない。',
+    letterTarget: 'reo'
   }
 };
 
@@ -2049,6 +2114,10 @@ function showToast(msg) {
     { icon: '🐻', name: 'いが' },
     { icon: '🐯', name: 'こうち' },
     { icon: '🐨', name: 'しゅう' },
+    { icon: '🐘', name: 'しゃり' },
+    { icon: '🐰', name: 'はぎ' },
+    { icon: '🦚', name: 'りゅう' },
+    { icon: '🐺', name: 'れお' },
   ];
 
   const allFortunes = {
@@ -2340,6 +2409,54 @@ function showToast(msg) {
       {stars:4,item:'ヘミングウェイのタイプライター',text:'無駄な装飾を削ぎ落とした、力強く静かな文章が書ける日。ハードボイルドな男を演じろ。'},
       {stars:-1,item:'ピタゴラスの定理',text:'感情をすべて数式で表そうとして発狂する。人の心は直角三角形ではないことに気づけ。'},
     ],
+    'しゃり': [
+      {stars:99,item:'ホームランボール',text:'今日の打率は人生最高値。思い切って振り切れ。迷ったらフルスイングが正解の日。'},
+      {stars:3,item:'松脂（ロージン）',text:'手が滑りそうな場面でもしっかり踏ん張れる。グリップを確認してから挑め。'},
+      {stars:5,item:'キャッチャーミット',text:'受け止め力が爆発する日。誰の話も全部キャッチできる。今日は聞き役に徹せよ。'},
+      {stars:1,item:'デッドボール',text:'ぶつかっても痛みを見せるな。黙って一塁へ歩け。今日は耐える日だ。'},
+      {stars:4,item:'スコアブック',text:'細かいことを丁寧に記録するのが吉。どんな小さな成果も書き留めておけ。'},
+      {stars:10,item:'サヨナラヒット',text:'土壇場に強い日。諦めなければ最後に逆転できる。9回裏2アウトから始まる物語を書け。'},
+      {stars:2,item:'エラーの記録',text:'ミスしても次のプレーに集中しろ。失点よりも後続を断つことに全力を注げ。'},
+      {stars:8,item:'甲子園の土',text:'感動を呼ぶ何かが起きる予感。今日の出来事をちゃんと覚えておけ。'},
+      {stars:3,item:'バッティンググローブ',text:'準備が整っている日。あとはタイミングだけ。チャンスが来たら迷わず踏み込め。'},
+      {stars:6,item:'大谷翔平のサイン',text:'二刀流の才能が開花。仕事も遊びも全部うまくいく奇跡の一日。'},
+    ],
+    'はぎ': [
+      {stars:5,item:'四つ葉のクローバー',text:'天然のアンテナが幸運を引き寄せる日。深く考えずに直感で動くのが正解。'},
+      {stars:8,item:'ハーブティー',text:'あなたのほっこりオーラが周囲を癒す。今日は存在するだけで場が和む。'},
+      {stars:2,item:'忘れたカギ',text:'うっかりが炸裂する日。外出前に三回確認しろ。でも笑いに変わるから大丈夫。'},
+      {stars:4,item:'手作りクッキー',text:'不格好でも心がこもったものが一番刺さる日。完璧より誠実さを大切に。'},
+      {stars:99,item:'満開の桜',text:'みんながあなたのそばにいたくなる日。太陽みたいな存在感を全開放しろ。'},
+      {stars:1,item:'からまったイヤホン',text:'何をやっても少しずれる日。焦らず一つずつほぐしていけばいい。'},
+      {stars:6,item:'ふかふかのクッション',text:'誰かの心の柔らかい場所になれる日。ただそこにいるだけで安心感を与えられる。'},
+      {stars:3,item:'野の花',text:'特別じゃないけどなぜか目に止まる存在感。今日のあなたはその花。'},
+      {stars:7,item:'手書きのメモ',text:'天然な一言が誰かの心にぶっ刺さる日。深く考えずに口に出した言葉が名言になる。'},
+      {stars:4,item:'虹',text:'嵐のあとに笑顔を届けられる日。落ち込んでいる人のそばにいてあげろ。'},
+    ],
+    'りゅう': [
+      {stars:99,item:'限定スニーカー',text:'審美眼が神がかり的に冴える日。今日の選択はすべてがセンスの塊になる。'},
+      {stars:4,item:'ヴィンテージのデニム',text:'古いものに価値を見出す目が光る。誰かが捨てたものを宝に変えられる。'},
+      {stars:3,item:'コーディネートアプリ',text:'今日の自分の着こなしに自信を持て。細部へのこだわりが人の目を引く。'},
+      {stars:6,item:'パリの街並み',text:'日常の中に美を発見できる日。いつもの道がランウェイに見えてくる。'},
+      {stars:1,item:'コーヒーのシミ',text:'渾身のコーデに汚れがつく日。動じるな。それを個性にできるのがおしゃれ上級者だ。'},
+      {stars:5,item:'シルクのスカーフ',text:'さりげない気遣いが光る日。小さなディテールが全体の印象を底上げする。'},
+      {stars:8,item:'ファッション誌の表紙',text:'今日のあなたは表紙張れるレベル。写真を撮っておけ、後で見返すと笑顔になれる。'},
+      {stars:2,item:'縮んだニット',text:'取り扱い注意の日。大事なものは丁寧に扱え。ドライクリーニング推奨。'},
+      {stars:7,item:'カラーパレット',text:'色使いの才能が爆発。部屋のインテリアでも服でも、今日の選択は間違いなし。'},
+      {stars:4,item:'テーラーのメジャー',text:'ぴったりフィットする言葉を選べる日。相手のサイズを測ってから話しかけろ。'},
+    ],
+    'れお': [
+      {stars:99,item:'フェロモン全開状態',text:'理由は不明だが全方位からモテる日。いつも通りにしているだけで伝説が生まれる。'},
+      {stars:4,item:'サングラス',text:'いかつさが武器になる日。目を細めるだけで周囲が道を開ける。使いこなせ。'},
+      {stars:3,item:'革ジャン',text:'外見のオーラで先手を取れる日。第一印象で9割決まる勝負に挑め。'},
+      {stars:7,item:'人差し指（左）',text:'無言の指差し一つで場を支配できる日。言葉より態度で示せ。'},
+      {stars:1,item:'割れた鏡',text:'イメチェンしたくなるが、今日は現状維持が吉。強みを捨てるな。'},
+      {stars:5,item:'バーのカウンター',text:'渋い立ち居振る舞いが人を引きつける日。余計なことを喋らない方がモテる。'},
+      {stars:2,item:'無駄に長い沈黙',text:'かっこつけすぎて会話が成立しない日。たまには素直になれ。意外とそっちがモテる。'},
+      {stars:8,item:'夜景',text:'ロマンチックな偶然が起きやすい日。いかつい顔でニコッと笑うとギャップが炸裂する。'},
+      {stars:6,item:'コートの襟',text:'立てるだけで二割増しの日。背筋を伸ばして歩くだけで人生が変わる。'},
+      {stars:10,item:'謎の色気',text:'本人が一番わかっていないモテ力が今日は最大値。自分のことを信じろ。'},
+    ],
   };
 
   function starsDisplay(n) {
@@ -2368,7 +2485,7 @@ function showToast(msg) {
   function playRevealSound(stars) {
     try {
       const idx = yuSoundIndex(stars);
-      const audio = new Audio('yu' + idx + '.mp3');
+      const audio = new Audio('sounds/yu' + idx + '.mp3');
       audio.play();
     } catch(e) {}
   }
@@ -2475,8 +2592,7 @@ function showToast(msg) {
   function loadData() {
     try {
       const saved = localStorage.getItem(storageKey);
-      const parsed = saved ? JSON.parse(saved) : null;
-      return { draws: Array.isArray(parsed?.draws) ? parsed.draws : [] };
+      return saved ? JSON.parse(saved) : { draws: [] };
     } catch(e) { return { draws: [] }; }
   }
 
@@ -2534,19 +2650,15 @@ function showToast(msg) {
     const m = members[Math.floor(Math.random() * members.length)];
     const pool = allFortunes[m.name] || [];
     const f = pool[Math.floor(Math.random() * pool.length)];
-    if (!f) { if (btn) btn.disabled = false; return; }
 
     data.draws.push({ memberName: m.name, fortune: f });
     saveData(data);
     updateDots(data.draws.length);
 
-    // 音声は「ゆ」より1.5秒早く再生
     setTimeout(() => {
       playRevealSound(f.stars);
-    }, 0);
-    setTimeout(() => {
       showResult(m, f, true);
-    }, 1500);
+    }, 1300);
   }
 
   window.revealFortune = function() {
@@ -2906,6 +3018,10 @@ document.addEventListener('click', (e) => {
     { emoji: '🐻', name: 'いが', speed: 0.8 },
     { emoji: '🐯', name: 'こうち', speed: 1.5 },
     { emoji: '🐨', name: 'しゅう', speed: 1.0 },
+    { emoji: '🐘', name: 'しゃり', speed: 0.6 },
+    { emoji: '🐰', name: 'はぎ', speed: 1.3 },
+    { emoji: '🦚', name: 'りゅう', speed: 1.1 },
+    { emoji: '🐺', name: 'れお', speed: 0.9 },
   ];
 
   const hour = new Date().getHours();
