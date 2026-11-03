@@ -1,0 +1,10 @@
+{
+  "name": "bridge-radio",
+  "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server ${PORT:-3000} --bind 0.0.0.0 --directory dist",
+    "build": "python3 scripts/build.py",
+    "refresh": "python3 scripts/refresh.py",
+    "test": "python3 -m unittest discover -s tests"
+  }
+}

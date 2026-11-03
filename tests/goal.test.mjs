@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import handler,{parseGoal,getGoal} from '../netlify/functions/goal.mjs';
+import {snapshot} from '../netlify/functions/lib/goal-snapshot.mjs';
+const csv='現在の再生数,目標,最終更新\n"4,800","10,000",2026.5/29 21:25\n';
+test('goal parser preserves real measurement date',()=>{const data=parseGoal(csv,new Date('2026-11-02'));assert.equal(data.current,4800);assert.equal(data.target,10000);assert.equal(data.is_stale,true);assert.equal(data.measured_at,'2026-05-29T21:25:00+09:00');});
+test('malformed data never becomes a zero goal',()=>{for(const value of [csv.replace('4,800','-5'),csv.replace('10,000','0'),csv.replace('2026.5/29','2026.2/30'),csv.replace('2026.5/29','2099.1/1'),'not a csv'])assert.throws(()=>parseGoal(value));});
+test('fetch error retains measured snapshot and marks fallback',async()=>{const data=await getGoal(async()=>{throw Error('offline');});assert.equal(data.current,snapshot.current);assert.equal(data.fallback,true);assert.equal(data.is_stale,true);});
+test('valid source is used without rewriting source timestamp',async()=>{const data=await getGoal(async()=>new Response(csv.replace('4,800','4,950')));assert.equal(data.current,4950);assert.equal(data.fallback,false);assert.equal(data.updated,'2026.5/29 21:25');});
+test('goal endpoint is read-only',async()=>{const response=await handler(new Request('https://example.test/goal',{method:'POST'}));assert.equal(response.status,405);});
