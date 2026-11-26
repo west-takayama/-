@@ -2466,30 +2466,6 @@ function showToast(msg) {
     return '⭐'.repeat(full) + (n % 1 >= 0.5 ? '✨' : '');
   }
 
-  // 声データはHTMLのaudioタグで管理
-
-  // 星数 → 音声インデックス（0〜7）
-  function yuSoundIndex(n) {
-    if (n <= 0)   return 0;
-    if (n <= 1)   return 1;
-    if (n <= 2)   return 2;
-    if (n <= 3)   return 3;
-    if (n <= 5)   return 4;
-    if (n <= 20)  return 5;
-    if (n <= 100) return 6;
-    return 7;
-  }
-
-  function playSpinSound() {} // 声で代用するので不要
-
-  function playRevealSound(stars) {
-    try {
-      const idx = yuSoundIndex(stars);
-      const audio = new Audio('sounds/yu' + idx + '.mp3');
-      audio.play();
-    } catch(e) {}
-  }
-
   // 星数 → ゆ〜の大きさ・演出強度
   function yuParams(n) {
     if (n <= 0)   return { size: 28,  text: 'ゆ…',           color: '#666',   particles: 0,  shake: false };
@@ -2645,7 +2621,6 @@ function showToast(msg) {
       void orb.offsetWidth;
       orb.classList.add('spinning');
     }
-    playSpinSound();
 
     const m = members[Math.floor(Math.random() * members.length)];
     const pool = allFortunes[m.name] || [];
@@ -2656,7 +2631,6 @@ function showToast(msg) {
     updateDots(data.draws.length);
 
     setTimeout(() => {
-      playRevealSound(f.stars);
       showResult(m, f, true);
     }, 1300);
   }
