@@ -1,11 +1,9 @@
-const CACHE_NAME = 'bridge-radio-v1';
+const CACHE_NAME = 'bridge-radio-v2';
 const ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/ogp.png'
+  '/icon-192.png'
 ];
 
 self.addEventListener('install', e => {
@@ -17,7 +15,7 @@ self.addEventListener('install', e => {
 self.addEventListener('activate', e => {
   e.waitUntil(
     caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
+      Promise.all(keys.filter(k => k.startsWith('bridge-radio-') && k !== CACHE_NAME).map(k => caches.delete(k)))
     )
   );
 });
